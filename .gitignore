@@ -1,0 +1,11 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+
+#ambiente virtual y claves
+/david_guentelican
+usuarios.txt
