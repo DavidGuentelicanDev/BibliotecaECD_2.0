@@ -1,13 +1,33 @@
 {% extends 'base_admin.html' %}
 
 {% block title %}
-    ADMIN ECD
+    Login Admin ECD
 {% endblock %}
 
 {% block content %}
     {% load static %}
-    Página del login del admin
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card" style="width: 35rem;">
+            <div class="card-body mt-3 mb-3">
+                <h2 class="text-center mb-3">Inicio de sesión</h2>
+                <form class="mt-2 mb-2" id="form_loginAdmin" action="{% url 'admin_login' %}" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label class="form-label" for="txt_correoAdmin">Correo electrónico</label>
+                        <input type="email" class="form-control" id="txt_correoAdmin" name="correoAdmin" placeholder="correo@correo.com" />
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label" for="txt_contrasenaAdmin">Contraseña</label>
+                        <input type="password" class="form-control" id="txt_contrasenaAdmin" name="contrasenaAdmin" placeholder="Ingrese su contraseña" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3" id="btn_loginAdmin">Ingresar</button>
+                </form>
+                <a href="" class="card-link">¿Has olvidado tu contraseña? Presiona aquí para recuperarla</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block footer %}
+    <script src="{% static 'js/login.js' %}"></script>
 {% endblock %}
