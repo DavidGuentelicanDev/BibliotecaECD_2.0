@@ -54,9 +54,9 @@
                             <li><button class="dropdown-item" type="button">Mi perfil</button></li>
                             <li><button class="dropdown-item" type="button">Cambiar contraseña</button></li>
                             <div class="dropdown-divider"></div>
-                            <form method='POST' action="{% url 'logout' %}">
+                            <form method='POST' action="{% url 'logout' %}" id="form_logout">
                                 {% csrf_token %}
-                                <li><button class="dropdown-item" type="submit">Cerrar sesión</button></li>
+                                <li><button class="dropdown-item" type="submit" id="btn_cerrarSesion">Cerrar sesión</button></li>
                             </form>
                         </ul>
                     </div>
@@ -73,6 +73,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!--SWEET ALERT-->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!--JS generales-->
+        <script src="{% static 'js/logout.js' %}"></script>
         {% block footer %}
         {% endblock %}
     </body>

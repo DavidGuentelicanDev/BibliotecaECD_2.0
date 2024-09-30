@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 #login logout y permisos
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from django.http import JsonResponse
 
@@ -35,12 +35,31 @@ def login_admin(request):
                 'message': 'Usuario y/o Contraseña inválidos. Vuelve a ingresar con credenciales registradas. Si no tienes usuario, comunícate con tu jefatura para solicitar credenciales'
             })
 
+#funcion para permisos staff solamente
+def staff_requerido(user):
+    return user.is_staff
+
+#funcion para permisos admin staff
+def admin_requerido(user):
+    return user.rol == 1
+
+#funcion para permisos admin y biliotecario staff
+def bibliotecario_requerido(user):
+    return user.rol == 1 or user.rol == 2
+
+#pagina que redirige a mensaje sin permisos
+def sin_acceso(request):
+    return render(request, 'app_admin/sin_permisos.html')
+
 #pagina home
-@login_required
+@login_required(login_url='/app_admin/sin_acceso/')
+@user_passes_test(staff_requerido, login_url='/app_admin/sin_acceso/')
 def home(request):
     return render(request, 'app_admin/home.html')
 
 #funcion de logout
+@login_required(login_url='/app_admin/sin_acceso/')
+@user_passes_test(staff_requerido, login_url='/app_admin/sin_acceso/')
 def cerrar_sesion(request):
     logout(request)
     return redirect('login')

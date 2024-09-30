@@ -11,11 +11,21 @@ $(document).ready(function() {
                 title: 'Campos obligatorios',
                 text: 'Debes indicar un usuario y una clave válidos para iniciar sesión',
                 icon: 'warning',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'Aceptar'
             });
 
             return;
         }
+
+        //muestra el efecto de carga antes de realizar la peticion
+        Swal.fire({
+            title: 'Validando credenciales',
+            text: 'Por favor, espera mientras se procesan los datos',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading(); //efecto de carga
+            }
+        });
 
         //ajax para capturar los jsonresponse
         $.ajax({
@@ -34,10 +44,10 @@ $(document).ready(function() {
                         title: 'Credenciales válidas',
                         text: 'Redirigiendo a la página principal...',
                         icon: 'success',
-                        timer: 1000,
+                        timer: 1500,
                         showConfirmButton: false,
                         didOpen: () => {
-                            Swal.showLoading();
+                            Swal.showLoading(); //efecto de carga
                         },
                         willClose: () => {
                             window.location.href = '/app_admin/home/';
@@ -48,7 +58,7 @@ $(document).ready(function() {
                         title: 'Error',
                         text: response.message,
                         icon: 'error',
-                        confirmButtonText: 'OK'
+                        confirmButtonText: 'Aceptar'
                     });
                 }
             },
@@ -60,7 +70,7 @@ $(document).ready(function() {
                     title: 'Error',
                     text: 'Hubo un error al intentar iniciar sesión. Por favor, intenta nuevamente más tarde.',
                     icon: 'error',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'Aceptar'
                 });
             }
         });
